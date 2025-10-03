@@ -81,16 +81,35 @@ int is_valid(Node* n){
       }  
     }
   } 
-
-
-
-
     return 1;
 }
 
 
 List* get_adj_nodes(Node* n){
     List* list=createList();
+    int i, j;
+    int found = 0;
+
+    for(i = 0; i < 9 && !found; i++){
+      for(j = 0; j < 9 && !found; j++){
+        if(n->sudo[i][j] == 0){
+          found = 1;
+          int num;
+          for(num = 1; num <= 9; num++){
+            Node* adj = copy(n);
+            adj->sudo[i][j] = num;
+            if(is_valid(adj)){
+              pushBack(list, adj);
+            } 
+            else{
+              free(adj);
+            }  
+          }    
+        }      
+      }    
+    }    
+      
+    
     return list;
 }
 
@@ -104,8 +123,9 @@ Node* DFS(Node* initial, int* cont){
 }
 
 
-
+/*
 int main( int argc, char *argv[] ){
+
 
   Node* initial= read_file("s12a.txt");;
 
@@ -116,3 +136,4 @@ int main( int argc, char *argv[] ){
 
   return 0;
 }
+  */

@@ -44,6 +44,46 @@ void print_node(Node* n){
 }
 
 int is_valid(Node* n){
+  int i, j, k, p;
+  int check[10];
+
+  for(i = 0; i < 9; i++){
+    for(j = 0; j < 10; j++) check[j] = 0;
+    for(j = 0; j < 9; j++){
+      int num = n->sudo[i][j];
+      if(num != 0){
+        if(check[num] == 1) return 0;
+        check[num] = 1;
+      }
+    }
+  }
+
+  for(j = 0; j < 9; j++){
+    for(i = 0; i < 10; i++) check[i] = 0;
+    for(i = 0; i < 9; i++){
+      int num = n->sudo[i][j];
+      if(num != 0){
+        if(check[num] == 1) return 0;
+        check[num] = 1;
+      }
+    }
+  }
+
+  for(k = 0; k < 9; k++){
+    for(i = 0; i < 10; i++) check[i] = 0;
+    for(p = 0; p < 9; p++){
+        int row = 3*(k/3) + (p/3);
+        int col = 3*(k%3) + (p%3);
+        int num = n->sudo[row][col];
+        if(num != 0){
+        if(check[num] == 1) return 0;
+        check[num] = 1;
+      }  
+    }
+  } 
+
+
+
 
     return 1;
 }
@@ -65,7 +105,6 @@ Node* DFS(Node* initial, int* cont){
 
 
 
-/*
 int main( int argc, char *argv[] ){
 
   Node* initial= read_file("s12a.txt");;
@@ -76,4 +115,4 @@ int main( int argc, char *argv[] ){
   print_node(final);
 
   return 0;
-}*/
+}
